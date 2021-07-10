@@ -8,38 +8,38 @@ import countries from '../../countries.json'
 export function Dashboard( ) {
   const [country, setCountry] = useState('');
   const [countryPt, setCountryPt] = useState('');
-  let [cases, setCases] = useState([]);
+  let [casesCovid, setcasesCovid] = useState([]);
 
 
 
   useEffect(() => {
     api.get(`${country}/status/confirmed`)
-    .then(response => setCases(response.data))
+    .then(response => setcasesCovid(response.data))
   
     
   }, [country])
 
-  let result = eachMonthOfInterval({
+  let lastDaysMonths = eachMonthOfInterval({
     start: new Date(2019, 12, 1),
     end: new Date(2021, 7, 8)
   })
-  result = result.map((item) => { return format(new Date(lastDayOfMonth(item)), 'yyyy/MM/dd')})
+  lastDaysMonths = lastDaysMonths.map((item) => { return format(new Date(lastDayOfMonth(item)), 'yyyy/MM/dd')})
   
     
     
     function handleGetMonth (date) {
     let month = getMonth(new Date (date))
 
-      let arrayMonthers = [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-      return arrayMonthers[month]
+      let arrayMonths = [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+      return arrayMonths[month]
     }
 
-  function filterItems(date) {
+  function findDateEqualy(date) {
     
-    return result.find (item => item === date)
+    return lastDaysMonths.find (item => item === date)
   }
 
-  cases = cases.filter((item) => format(new Date(item.Date), 'yyyy/MM/dd') === filterItems(format(new Date(item.Date), 'yyyy/MM/dd')))
+  casesCovid = casesCovid.filter((item) => format(new Date(item.Date), 'yyyy/MM/dd') === findDateEqualy(format(new Date(item.Date), 'yyyy/MM/dd')))
 
   
   return (
@@ -69,7 +69,7 @@ export function Dashboard( ) {
       </thead>
    
       <tbody>
-        {cases.map((item, index) => (
+        {casesCovid.map((item, index) => (
           <tr key={index}>
           <td>{handleGetMonth(item.Date)}</td>
           

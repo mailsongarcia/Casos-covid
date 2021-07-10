@@ -38,7 +38,7 @@ html {
 }
 
 body {
-  background: url(${background}), var(--background)  repeat ;
+  background: url(${background}), var(--background) no-repeat ;
   background-size: 100%;
   -webkit-font-smoothing: antialiased;
 }

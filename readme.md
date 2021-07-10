@@ -8,7 +8,7 @@ Aplicação simples para listar os casos de covid do país selecionado de acordo
 
 
 ```bash
-yarn start
+yarn start or npm start
 ```
 
 ## Technologies
